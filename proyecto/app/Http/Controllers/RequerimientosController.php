@@ -27,17 +27,23 @@ class RequerimientosController extends Controller {
       error_log("acasasdasd");
       
       //METODO 1 De enviar mail
-      //Mail::to('anelegaribaldi@gmail.com')->queue(new MessageReceived($msg));
+      Mail::to('tefpatterson@gmail.com')->queue(new MessageReceived($msg));
       
       //Metodo 2 de enviar mail
       /*
       $to_name = "anele";
-      $to_email = "anele_13@hotmail.com";
+      $to_email = "tefpatterson@gmail.com";
       $data = array("name"=>"nada", "body" => "testeando");
       Mail::send("emails.message-received", $data, function($message) use ($to_name, $to_email) {
-         $message->to($to_email, $to_name)->subject("nada 2");
+         $message->to($to_email, $to_name)
+                  ->subject("nada 2");
          $message->from("anelegaribaldi@gmail.com","nada");});
       */
+
+      
+
+
+
      
       return response()->json(array('msg'=> $msg), 200);
    }
