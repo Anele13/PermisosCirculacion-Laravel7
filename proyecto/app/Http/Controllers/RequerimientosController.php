@@ -27,7 +27,7 @@ class RequerimientosController extends Controller {
       error_log("acasasdasd");
       
       //METODO 1 De enviar mail
-      Mail::to('tefpatterson@gmail.com')->queue(new MessageReceived($msg));
+      Mail::to('anelegaribaldi@gmail.com')->queue(new MessageReceived($msg));
       
       //Metodo 2 de enviar mail
       /*
