@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'pgsql'),
+    'default' => env('DB_CONNECTION', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -66,7 +66,6 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '5432'),
@@ -83,7 +82,6 @@ return [
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
-            'url' => $DATABASE_URL["url"],
             'host' => $DATABASE_URL["host"],
             'port' => $DATABASE_URL["port"],
             'database' => ltrim($DATABASE_URL["path"],"/"),

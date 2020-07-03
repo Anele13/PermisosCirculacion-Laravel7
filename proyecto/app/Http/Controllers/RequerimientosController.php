@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Requerimientos;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MessageReceived;
+use PDF;
+
 
 class RequerimientosController extends Controller {
 
@@ -27,21 +29,29 @@ class RequerimientosController extends Controller {
       error_log("acasasdasd");
       
       //METODO 1 De enviar mail
-      Mail::to('anelegaribaldi@gmail.com')->queue(new MessageReceived($msg));
-      
+      //Mail::to('anelegaribaldi@gmail.com')->queue(new MessageReceived($msg));
+
       //Metodo 2 de enviar mail
-      /*
-      $to_name = "anele";
-      $to_email = "tefpatterson@gmail.com";
-      $data = array("name"=>"nada", "body" => "testeando");
-      Mail::send("emails.message-received", $data, function($message) use ($to_name, $to_email) {
-         $message->to($to_email, $to_name)
-                  ->subject("nada 2");
-         $message->from("anelegaribaldi@gmail.com","nada");});
-      */
+      //Creo el pdf para enviar
+      $data_pdf = ["algo para enviar"];
+      $pdf = PDF::loadView('emails.pdf-content', $data_pdf);
 
+      //adjunto el pdf y lo envio por mail
+      $to_name = "Administrador del Sitio";
+      $to_email = "anelegaribaldi@gmail.com";
+      $data_contenido_mail = [
+         'token' => "acaVaElCodigoDelPermiso"
+      ];
+
+      Mail::send("emails.message-content", ["data"=>$data_contenido_mail], function($message) use ($to_name, $to_email, $pdf) {
+         $message->to($to_email, $to_name)->subject("Solicitud de Permiso");
+         $message->from("anelegaribaldi@gmail.com","Sitio de Permisos");
+         $message->attachData($pdf->output(), "permiso.pdf");
+      });
       
 
+      
+      
 
 
      

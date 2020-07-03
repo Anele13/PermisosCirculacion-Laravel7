@@ -21,7 +21,7 @@ Route::get('/', function () {
 # La parte del administrador del sitio
 Route::get('/admin', function () {
     $requerimientos = \App\Requerimientos::find(1);
-    return view('admin.index',["requerimientos"=>$requerimientos]);
+    return view('admin.index',["requerimientos"=>$requerimientos]); //admin.index
 });
 
 Route::get('/update_campos_persona','RequerimientosController@updateCamposPersona')->name('update_campos_persona');
