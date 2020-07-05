@@ -273,11 +273,7 @@ span.round-tab:hover {
                 dataArray.push({"nombre":i, "disponible":val})
                 if(i =='superior'){
                     superior="<div class='form-group row justify-content-center'> <label for='superior'>Personal Responable Superior<label/> <select id ='superior'type='text' class='form-control' name='superior'></select></div>"
-                    /* @foreach($superiores->get() as $index => $superior)
-                                            <option value="{{ $index }}" {{ old('superior') == $index ? 'selected' : '' }}>
-                                                {{ $superior }}
-                                            </option>
-                                        @endforeach*/
+                    
                 }else{
                     contenido+="<div class='form-group row justify-content-center'> <label for='"+i+"'>"+i+"<label/> <input id ='"+i+"'type='text' class='form-control{{ $errors->has('"+i+"') ? ' is-invalid' : '' }}' name='"+i+"' value='{{old('"+i+"')}}'>@if ($errors->has('"+i+"'))<span class='invalid-feedback' role='alert'><strong>{{ $errors->first('"+i+"') }}</strong></span>@endif</div>"
                 }

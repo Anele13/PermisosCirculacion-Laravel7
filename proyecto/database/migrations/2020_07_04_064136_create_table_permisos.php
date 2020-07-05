@@ -33,6 +33,7 @@ class CreateTablePermisos extends Migration
             $table->foreign('superior')->references('id')->on('superiors');   
             $table->string('dependencia')->nullable();
             $table->string('espacio')->nullable();
+            $table->boolean('autorizado')->nullable();
             $table->timestamps();
         });
     }

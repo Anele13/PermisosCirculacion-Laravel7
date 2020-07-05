@@ -30,31 +30,6 @@ class RequerimientosController extends Controller {
       
       //METODO 1 De enviar mail
       //Mail::to('anelegaribaldi@gmail.com')->queue(new MessageReceived($msg));
-
-      //Metodo 2 de enviar mail
-      //Creo el pdf para enviar
-      $data_pdf = ["algo para enviar"];
-      $pdf = PDF::loadView('emails.pdf-content', $data_pdf);
-
-      //adjunto el pdf y lo envio por mail
-      $to_name = "Administrador del Sitio";
-      $to_email = "anelegaribaldi@gmail.com";
-      $data_contenido_mail = [
-         'token' => "acaVaElCodigoDelPermiso"
-      ];
-
-      Mail::send("emails.message-content", ["data"=>$data_contenido_mail], function($message) use ($to_name, $to_email, $pdf) {
-         $message->to($to_email, $to_name)->subject("Solicitud de Permiso");
-         $message->from("anelegaribaldi@gmail.com","Sitio de Permisos");
-         $message->attachData($pdf->output(), "permiso.pdf");
-      });
-      
-
-      
-      
-
-
-     
       return response()->json(array('msg'=> $msg), 200);
    }
 
