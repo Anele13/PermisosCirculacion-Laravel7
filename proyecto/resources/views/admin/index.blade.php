@@ -1,6 +1,7 @@
 @extends('layout_base')
 
 @section('content')
+
 <style>
     .transfer-demo {
         width: 640px;
@@ -130,7 +131,20 @@
     };
     var transfer1 = $("#transfer1").transfer(settings1);
 
-
+    var dataArray = []
+    var cambios = {}
+    var json = {!!$requerimientos->datos_organizacion!!}
+    jQuery.each(json, function(i, val) {
+        console.log(i)
+        console.log(val)
+        cambios[i]=val
+        if(val != "true"){
+            dataArray.push({"nombre":i, "disponible":val})
+        }
+        else{
+            dataArray.push({"nombre":i, "disponible":val,"selected": true})
+        }
+    });
     var settings2 = {
         "dataArray": dataArray,
         "itemName": "nombre",

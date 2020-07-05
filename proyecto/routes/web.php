@@ -26,8 +26,8 @@ Route::get('/admin', function () {
 
 Route::get('/update_campos_persona','RequerimientosController@updateCamposPersona')->name('update_campos_persona');
 Route::post('/update_campos_sitio', 'RequerimientosController@updateCamposSitio')->name('update_campos_sitio');
-Route::post('/update_campos_organizacion', 'RequerimientosController@updateCamposrganizacion')->name('update_campos_organizacion');
-
+Route::get('/update_campos_organizacion', 'RequerimientosController@updateCamposOrganizacion')->name('update_campos_organizacion');
+Route::post('/permisos_store', 'PermisosController@store')->name('permisos_store');
 
 
 

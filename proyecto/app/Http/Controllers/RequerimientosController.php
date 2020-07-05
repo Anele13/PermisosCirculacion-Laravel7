@@ -86,6 +86,15 @@ class RequerimientosController extends Controller {
 
    public function updateCamposOrganizacion(Request $request){
       
-
+      $requerimientos = Requerimientos::find(1);
+      $atributos = json_decode($requerimientos->datos_organizacion, true);
+      
+      foreach($atributos as $key=>$value) {
+        $atributos[$key] = $request->input($key);
+      }
+      $requerimientos->datos_organizacion = json_encode($atributos);
+      $requerimientos->save();
+      $msg = "This is a simple message.";
+      return response()->json(array('msg'=> $msg), 200);
    }
 }
