@@ -16,13 +16,14 @@ class RequerimientosController extends Controller {
 
    public function updateCamposPersona(Request $request) {
       //error_log($request->input('nombre'));
-      error_log("acasasdasd");
+      
       $requerimientos = Requerimientos::find(1);
       $atributos = json_decode($requerimientos->datos_persona, true);
-      
       foreach($atributos as $key=>$value) {
         $atributos[$key] = $request->input($key);
+        //error_log($request->input($key));
       }
+
       $requerimientos->datos_persona = json_encode($atributos);
       $requerimientos->save();
       $msg = "This is a simple message."; 

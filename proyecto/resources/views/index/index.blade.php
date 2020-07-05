@@ -269,7 +269,7 @@ span.round-tab:hover {
             console.log(i)
             console.log(val)
             cambios[i]=val
-            if(val == "false"){
+            if(val == "true"){
                 dataArray.push({"nombre":i, "disponible":val})
                 if(i =='superior'){
                     superior="<div class='form-group row justify-content-center'> <label for='superior'>Personal Responable Superior<label/> <select id ='superior'type='text' class='form-control' name='superior'></select></div>"
