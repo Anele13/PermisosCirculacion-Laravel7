@@ -118,7 +118,7 @@ class PermisosController extends Controller
                 $permiso->save();
 
 
-                $pdf = PDF::loadView('emails.pdf-content', ["ultimoPermiso"=>$ultimoPermiso]);
+                $pdf = PDF::loadView('emails.pdf-content', ["ultimoPermiso"=>$permiso]);
                 $to_name = "Administrador del Sitio";
                 $to_email = $permiso->email;
                 $data_contenido_mail = [
