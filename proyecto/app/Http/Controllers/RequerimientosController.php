@@ -29,8 +29,6 @@ class RequerimientosController extends Controller {
       $msg = "This is a simple message."; 
       error_log("acasasdasd");
       
-      //METODO 1 De enviar mail
-      //Mail::to('anelegaribaldi@gmail.com')->queue(new MessageReceived($msg));
       return response()->json(array('msg'=> $msg), 200);
    }
 

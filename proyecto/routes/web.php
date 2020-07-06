@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 # El index del sitio
 Route::get('/', function () {
     $requerimientos = \App\Requerimientos::find(1);
-    return view('index.index',["requerimientos"=>$requerimientos]);});
+    $superiores = \App\Superior::get();
+    $data = json_encode(array('data'=>$superiores));
+    return view('index.index',compact("requerimientos","data"));
+})->name('index');
     
 # La parte del administrador del sitio
 Route::get('/admin', function () {

@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Permiso;
+use App\Superior;
 
 class PermisosController extends Controller
 {
     public function store(Request $request){
-        
+        $superiores = \App\Superior::get();
+        $data = json_encode(array('data'=>$superiores));
         $datos=[];
         if($request->has('nombre')){
             $datos['nombre']='required|string|max:70';    
@@ -38,8 +40,8 @@ class PermisosController extends Controller
             $datos['espacio']='required|string|max:70';    
         }
         $Mensaje=["required"=>'El :attribute es requerido'];
-        $this->validate($request, $datos,$Mensaje);
 
+        $this->validate($request, $datos,$Mensaje);
         $datosPersona = $request->except('_token');
         Permiso::insert($datosPersona);
         /*
@@ -63,6 +65,7 @@ class PermisosController extends Controller
             $message->attachData($pdf->output(), "permiso.pdf");
             });  
         }*/
-        return  back()->with('success','Su solicitud de permiso ha sido enviada');
+        return redirect()->route('index')->with('success','Su solicitud de permiso ha sido enviada');
+        //return  back()->with('success','Su solicitud de permiso ha sido enviada');
     }
 }
