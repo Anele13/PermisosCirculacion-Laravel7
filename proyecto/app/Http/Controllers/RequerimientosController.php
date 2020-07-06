@@ -10,6 +10,7 @@ use App\Requerimientos;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MessageReceived;
 use PDF;
+use App\Superior;
 
 
 class RequerimientosController extends Controller {
@@ -70,5 +71,14 @@ class RequerimientosController extends Controller {
       $requerimientos->save();
       $msg = "This is a simple message.";
       return response()->json(array('msg'=> $msg), 200);
+   }
+
+   public function altaResponsable(Request $request){
+      $datosSuperior = $request->except('_token');
+      Superior::insert($datosSuperior);
+      $requerimientos = Requerimientos::find(1);
+      return back()
+            ->with('success','Se ha dado de alta un nuevo administrador!')
+            ->with('requerimientos',$requerimientos);
    }
 }

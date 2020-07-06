@@ -27,6 +27,7 @@ Route::get('/admin', function () {
     return view('admin.index',["requerimientos"=>$requerimientos]); //admin.index
 });
 
+Route::post('/alta_reponsable','RequerimientosController@altaResponsable')->name('alta_reponsable');
 Route::get('/update_campos_persona','RequerimientosController@updateCamposPersona')->name('update_campos_persona');
 Route::post('/update_campos_sitio', 'RequerimientosController@updateCamposSitio')->name('update_campos_sitio');
 Route::get('/update_campos_organizacion', 'RequerimientosController@updateCamposOrganizacion')->name('update_campos_organizacion');

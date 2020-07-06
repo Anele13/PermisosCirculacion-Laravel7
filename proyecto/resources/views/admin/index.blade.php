@@ -31,7 +31,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <h4>Datos Del Sitio</h4>
             <hr>   
             <!--<img src="images/{{ Session::get('image') }}">-->
@@ -58,6 +58,18 @@
                         <button type="submit" class="btn btn-info">Actualizar</button>
                     </div>
                 </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h4>Responsable de los Permisos</h4>
+            <hr> 
+            <form class="form" method="POST" action="{{ route('alta_reponsable') }}" >
+                @csrf
+                <input required type="text" class="form-control sm-2 mr-sm-2"  name="nombre" placeholder="Nombre">
+                <br>
+                <input required type="mail" class="form-control sm-2 mr-sm-2"  name="email" placeholder="Email">
+                <br>
+                <button type="submit" class="btn btn-info">Alta</button>
             </form>
         </div>
     </div>
