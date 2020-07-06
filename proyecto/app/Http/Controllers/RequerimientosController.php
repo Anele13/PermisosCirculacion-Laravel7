@@ -10,26 +10,26 @@ use App\Requerimientos;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MessageReceived;
 use PDF;
+use App\Superior;
 
 
 class RequerimientosController extends Controller {
 
    public function updateCamposPersona(Request $request) {
       //error_log($request->input('nombre'));
-      error_log("acasasdasd");
+      
       $requerimientos = Requerimientos::find(1);
       $atributos = json_decode($requerimientos->datos_persona, true);
-      
       foreach($atributos as $key=>$value) {
         $atributos[$key] = $request->input($key);
+        //error_log($request->input($key));
       }
+
       $requerimientos->datos_persona = json_encode($atributos);
       $requerimientos->save();
       $msg = "This is a simple message."; 
       error_log("acasasdasd");
       
-      //METODO 1 De enviar mail
-      //Mail::to('anelegaribaldi@gmail.com')->queue(new MessageReceived($msg));
       return response()->json(array('msg'=> $msg), 200);
    }
 
@@ -71,5 +71,14 @@ class RequerimientosController extends Controller {
       $requerimientos->save();
       $msg = "This is a simple message.";
       return response()->json(array('msg'=> $msg), 200);
+   }
+
+   public function altaResponsable(Request $request){
+      $datosSuperior = $request->except('_token');
+      Superior::insert($datosSuperior);
+      $requerimientos = Requerimientos::find(1);
+      return back()
+            ->with('success','Se ha dado de alta un nuevo administrador!')
+            ->with('requerimientos',$requerimientos);
    }
 }

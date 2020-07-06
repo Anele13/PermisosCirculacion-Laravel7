@@ -31,7 +31,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <h4>Datos Del Sitio</h4>
             <hr>   
             <!--<img src="images/{{ Session::get('image') }}">-->
@@ -60,6 +60,18 @@
                 </div>
             </form>
         </div>
+        <div class="col-md-6">
+            <h4>Responsable de los Permisos</h4>
+            <hr> 
+            <form class="form" method="POST" action="{{ route('alta_reponsable') }}" >
+                @csrf
+                <input required type="text" class="form-control sm-2 mr-sm-2"  name="nombre" placeholder="Nombre">
+                <br>
+                <input required type="mail" class="form-control sm-2 mr-sm-2"  name="email" placeholder="Email">
+                <br>
+                <button type="submit" class="btn btn-info">Alta</button>
+            </form>
+        </div>
     </div>
     
     
@@ -71,22 +83,11 @@
 
 
 <script>
-    var dataArray = []
-    var cambios = {}
-    var json = {!!$requerimientos->datos_persona!!}
-    jQuery.each(json, function(i, val) {
-        console.log(i)
-        console.log(val)
-        cambios[i]=val
-        if(val != "true"){
-            dataArray.push({"nombre":i, "disponible":val})
-        }
-        else{
-            dataArray.push({"nombre":i, "disponible":val,"selected": true})
-        }
-    });
+    var dataArray1 = []
+    var cambios1 = {}
+    var json1 = {!!$requerimientos->datos_persona!!}
 
-    function getElemento(arreglo){
+    function getElemento(arreglo, cambios){
         if(arreglo.length === 0){
             //recorrer cambios y ponerles a todos false creo.
             jQuery.each(cambios, function(i, val) {
@@ -112,16 +113,30 @@
     }
 
 
+
+
+    
+    jQuery.each(json1, function(i, val) {
+        console.log(i)
+        console.log(val)
+        cambios1[i]=val
+        if(val != "true"){
+            dataArray1.push({"nombre":i, "disponible":val})
+        }
+        else{
+            dataArray1.push({"nombre":i, "disponible":val,"selected": true})
+        }
+    });
     var settings1 = {
-        "dataArray": dataArray,
+        "dataArray": dataArray1,
         "itemName": "nombre",
         "valueName": "disponible",
         "callable": function (items) {
-            getElemento(items); 
+            getElemento(items,cambios1); 
             $.ajax({
                 url: "{{ route('update_campos_persona') }}",
                 method: 'GET',
-                data: cambios,
+                data: cambios1,
                 success: function(data){
                     console.log(data)
                 }
@@ -130,6 +145,9 @@
         }
     };
     var transfer1 = $("#transfer1").transfer(settings1);
+
+
+
 
     var dataArray = []
     var cambios = {}
@@ -150,7 +168,7 @@
         "itemName": "nombre",
         "valueName": "disponible",
         "callable": function (items) {
-            getElemento(items);
+            getElemento(items,cambios);
             $.ajax({
                 url: "{{ route('update_campos_organizacion') }}",
                 method: 'GET',

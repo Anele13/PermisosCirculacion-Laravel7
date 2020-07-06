@@ -169,8 +169,6 @@ span.round-tab:hover {
         </div>
     @endif
     
-
-
     <div class="row">
         <div class="col-md-12 text-center">
             <img width="300px" id="logo">
@@ -242,10 +240,9 @@ span.round-tab:hover {
 
 
 
+  
 
-
-
-
+   
 
 
 
@@ -263,19 +260,32 @@ span.round-tab:hover {
         var cambios = {}
         var dataArray = []
         var json = {!!$requerimientos->datos_persona!!}
+        var superiores  = {!!$data!!}
+
+        var opciones_superiores= ""
+        jQuery.each(superiores["data"], function(i, val) {
+            //console.log(val.nombre)
+            opciones_superiores= opciones_superiores + "<option value="+val.id+">"+val.nombre+"</option>"
+        });
+
+        console.log(opciones_superiores)
+
         var contenido = "<div class='form-group row justify-content-center'><h3>Datos Personales</h3></div><div class='form-group row justify-content-center'><p>Ingrese todos los datos personales requeridos</p></div>"
         var superior =""
         jQuery.each(json, function(i, val) {
-            console.log(i)
-            console.log(val)
             cambios[i]=val
             if(val == "false"){
                 dataArray.push({"nombre":i, "disponible":val})
                 if(i =='superior'){
-                    superior="<div class='form-group row justify-content-center'> <label for='superior'>Personal Responable Superior<label/> <select id ='superior'type='text' class='form-control' name='superior'></select></div>"
+                    superior="<div class='form-group row justify-content-center'>"+ 
+                            "<label for='superior'>Personal Responable Superior<label/>"+
+                             "<select id ='superior'type='text' class='form-control' name='superior'>"+
+                             opciones_superiores+
+                             "</select>"+
+                             "</div>"
                     
                 }else{
-                    contenido+="<div class='form-group row justify-content-center'> <label for='"+i+"'>"+i+"<label/> <input id ='"+i+"'type='text' class='form-control{{ $errors->has('"+i+"') ? ' is-invalid' : '' }}' name='"+i+"' value='{{old('"+i+"')}}'>@if ($errors->has('"+i+"'))<span class='invalid-feedback' role='alert'><strong>{{ $errors->first('"+i+"') }}</strong></span>@endif</div>"
+                    contenido+="<div class='form-group row justify-content-center'> <label for='"+i+"'>"+i+"<label/> <input id ='"+i+"'type='text' class='form-control{{ $errors->has('"+i+"') ? ' is-invalid' : '' }}' required name='"+i+"' value='{{old('"+i+"')}}'>@if ($errors->has('"+i+"'))<span class='invalid-feedback' role='alert'><strong>{{ $errors->first('"+i+"') }}</strong></span>@endif</div>"
                 }
             }
             else{
@@ -293,12 +303,10 @@ span.round-tab:hover {
         var json = {!!$requerimientos->datos_organizacion!!}
         var contenido = "<div class='form-group row justify-content-center'><h3>Datos de la Organizacion</h3></div><div class='form-group row justify-content-center'><p>Ingrese todos los datos requeridos</p></div>"
         jQuery.each(json, function(i, val) {
-            console.log(i)
-            console.log(val)
             cambios[i]=val
             if(val == "false"){
                 dataArray.push({"nombre":i, "disponible":val})
-                contenido+="<div class='form-group row justify-content-center'> <label for='"+i+"'>"+i+"<label/> <input id ='"+i+"'type='text' class='form-control' name='"+i+"'></div>"
+                contenido+="<div class='form-group row justify-content-center'> <label for='"+i+"'>"+i+"<label/> <input id ='"+i+"'type='text' class='form-control' name='"+i+"' required ></div>"
             }
             else{
                 dataArray.push({"nombre":i, "disponible":val,"selected": true})
@@ -312,7 +320,6 @@ span.round-tab:hover {
         var cambios = {}
         var dataArray = []
         var json = {!!$requerimientos->datos_sitio!!}
-        console.log(json.imagen)
         $("#logo").attr("src","images/"+json.imagen)
         $(".navbar").css('background-color',json.colorBarra)
         $(document.body).css('background-color',json.colorFondo)
