@@ -37,8 +37,11 @@ Route::post('/update_campos_sitio', 'RequerimientosController@updateCamposSitio'
 Route::get('/update_campos_organizacion', 'RequerimientosController@updateCamposOrganizacion')->name('update_campos_organizacion');
 Route::post('/permisos_store', 'PermisosController@store')->name('permisos_store');
 
-Route::get('/autorizar_permiso/{token}','PermisosController@mostrar_permiso')->name('autorizar_permiso');
-Route::post('/autorizar/{token}', 'PermisosController@autorizar')->name('autorizar');
+Route::get('/nada', 'PermisosController@nada')->name('nada');
+
+Route::get('/habilitar_permiso','PermisosController@habilitarPermiso')->name('habilitarPermiso');
+
+//{{$data["url"]}}/habilitar_permiso/{{$data["token"]}}
 
 
 
