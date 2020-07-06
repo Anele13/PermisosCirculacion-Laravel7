@@ -20,7 +20,24 @@ class CreateTablePermisos extends Migration
             $table->timestamps();
         });
 
-        
+        Schema::create('sectors', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nombre')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('dependencias', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nombre')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('espacios', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nombre')->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('permisos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre')->nullable();
@@ -28,11 +45,14 @@ class CreateTablePermisos extends Migration
             $table->unsignedInteger('dni')->nullable();
             $table->unsignedInteger('legajo')->nullable();
             $table->string('email')->nullable();
-            $table->string('sector')->nullable();
+            $table->unsignedInteger('sector')->nullable();
+            $table->foreign('sector')->references('id')->on('sectors');
             $table->unsignedInteger('superior')->nullable();
             $table->foreign('superior')->references('id')->on('superiors');   
-            $table->string('dependencia')->nullable();
-            $table->string('espacio')->nullable();
+            $table->unsignedInteger('dependencia')->nullable();
+            $table->foreign('dependencia')->references('id')->on('dependencias');
+            $table->unsignedInteger('espacio')->nullable();
+            $table->foreign('espacio')->references('id')->on('espacios');
             $table->boolean('habilitado')->nullable();
             $table->timestamps();
             $table->string('token');
@@ -48,6 +68,9 @@ class CreateTablePermisos extends Migration
     {
         Schema::dropIfExists('permisos');
         Schema::dropIfExists('superiors');
+        Schema::dropIfExists('sectors');
+        Schema::dropIfExists('dependencias');
+        Schema::dropIfExists('espacios');
         
     }
 }

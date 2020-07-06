@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Permiso;
 use App\Superior;
+use App\Sector;
+use App\Dependencia;
+use App\Espacio;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
@@ -18,7 +21,10 @@ class PermisosController extends Controller
     public function index(){
         $datos['permisos']= Permiso::paginate(10);
         $datos2['superiores'] = Superior::all();
-        return view ('admin.permisos',$datos,$datos2);
+        $datos3['sectores'] = Sector::all();
+        $datos4['dependencias'] = Dependencia::all();
+        $datos5['espacios'] = Espacio::all();
+        return view ('admin.permisos',$datos,$datos2,$datos3,$datos4,$datos5);
     }
 
     public function store(Request $request){
@@ -66,7 +72,7 @@ class PermisosController extends Controller
         $superior = Superior:: where("id","=",$idSuperior)->first();
         $superiorEmail= $superior->email;
 
-        if($request->has('superior')){
+        if(false){
             //Metodo 2 de enviar mail
             //Creo el pdf para enviar
             $pdf = PDF::loadView('emails.pdf-content', ["ultimoPermiso"=>$ultimoPermiso]);

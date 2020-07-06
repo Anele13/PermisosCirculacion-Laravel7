@@ -16,10 +16,8 @@
                 <th>DNI</th>
                 <th>Legajo</th>
                 <th>Email</th>
-                <th>Sector</th>
                 <th>Responsable Superior</th>
-                <th>Dependencia</th>
-                <th>Espacio </th>
+
                 <th>Autorizado</th>
             
             </tr>
@@ -34,7 +32,9 @@
                 <td>{{$permiso->dni}}</td>
                 <td>{{$permiso->legajo}}</td>
                 <td>{{$permiso->email}}</td>
-                <td>{{$permiso->sector}}</td>
+
+
+
                 @if($permiso->superior != "")
                     @foreach($superiores as $superior)
                         @if($superior->id == $permiso->superior)
@@ -44,9 +44,10 @@
                 @else
                     <td>{{$permiso->superior}}</td>
                 @endif
-                <td>{{$permiso->dependencia}}</td>
-                <td>{{$permiso->espacio}}</td>
-                @if($permiso->autorizado == True)
+                
+                
+
+                @if($permiso->habilitado == True)
                     <td>Si</td>
                 @else
                     <td>No</td>

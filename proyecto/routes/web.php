@@ -17,8 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $requerimientos = \App\Requerimientos::find(1);
     $superiores = \App\Superior::get();
+    $sectores = \App\Sector::get();
+    $dependencias = \App\Dependencia::get();
+    $espacios = \App\Espacio::get();
     $data = json_encode(array('data'=>$superiores));
-    return view('index.index',compact("requerimientos","data"));
+    $data_sectores = json_encode(array('data_sectores'=>$sectores));
+    $data_dependencias = json_encode(array('data_dependencias'=>$dependencias));
+    $data_espacios = json_encode(array('data_espacios'=>$espacios));
+    return view('index.index',compact("requerimientos","data","data_sectores","data_dependencias","data_espacios"));
 })->name('index');
     
 # La parte del administrador del sitio

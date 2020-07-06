@@ -265,34 +265,51 @@ span.round-tab:hover {
         var dataArray = []
         var json = {!!$requerimientos->datos_persona!!}
         var superiores  = {!!$data!!}
+        var sectores = {!!$data_sectores!!}
 
         var opciones_superiores= ""
         jQuery.each(superiores["data"], function(i, val) {
             //console.log(val.nombre)
             opciones_superiores= opciones_superiores + "<option value="+val.id+">"+val.nombre+"</option>"
         });
-
         console.log(opciones_superiores)
+        var opciones_sectores= ""
+        jQuery.each(sectores["data_sectores"], function(i, val) {
+            //console.log(val.nombre)
+            opciones_sectores= opciones_sectores + "<option value="+val.id+">"+val.nombre+"</option>"
+        });
+
 
         var contenido = "<div class='form-group row justify-content-center'><h3>Datos Personales</h3></div><div class='form-group row justify-content-center'><p>Ingrese todos los datos personales requeridos</p></div>"
-        contenido += "<div class='form-group row justify-content-center'> <label for='nombre'>Nombre<label/> <input id ='nombre'type='text' class='form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}' required name='nombre' value='{{old('nombre')}}'>@if ($errors->has('nombre'))<span class='invalid-feedback' role='alert'><strong>{{ $errors->first('nombre') }}</strong></span>@endif</div>"
-        contenido += "<div class='form-group row justify-content-center'> <label for='email'>Email<label/> <input id ='email'type='text' class='form-control{{ $errors->has('email') ? ' is-invalid' : '' }}' required name='email' value='{{old('email')}}'>@if ($errors->has('email'))<span class='invalid-feedback' role='alert'><strong>{{ $errors->first('email') }}</strong></span>@endif</div>"
+        contenido += "<div class='form-group row justify-content-center'> <label for='nombre'>Nombre<label/> <input id ='nombre'type='text' class='form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}' name='nombre' value='{{old('nombre')}}'>@if ($errors->has('nombre'))<span class='invalid-feedback' role='alert'><strong>{{ $errors->first('nombre') }}</strong></span>@endif</div>"
+        contenido += "<div class='form-group row justify-content-center'> <label for='email'>Email<label/> <input id ='email'type='text' class='form-control{{ $errors->has('email') ? ' is-invalid' : '' }}' name='email' value='{{old('email')}}'>@if ($errors->has('email'))<span class='invalid-feedback' role='alert'><strong>{{ $errors->first('email') }}</strong></span>@endif</div>"
         var superior="<div class='form-group row justify-content-center'>"+ 
                             "<label for='superior'>Personal Responsable Superior<label/>"+
                              "<select id ='superior'type='text' class='form-control' name='superior'>"+
                              opciones_superiores+
                              "</select>"+
                              "</div>"
+        var sector =""
         jQuery.each(json, function(i, val) {
             cambios[i]=val
             if(val == "false"){
                 dataArray.push({"nombre":i, "disponible":val})
-                    contenido+="<div class='form-group row justify-content-center'> <label for='"+i+"'>"+i+"<label/> <input id ='"+i+"'type='text' class='form-control{{ $errors->has('"+i+"') ? ' is-invalid' : '' }}' required name='"+i+"' value='{{old('"+i+"')}}'>@if ($errors->has('"+i+"'))<span class='invalid-feedback' role='alert'><strong>{{ $errors->first('"+i+"') }}</strong></span>@endif</div>"
+                    if(i=="sector"){
+                        sector = "<div class='form-group row justify-content-center'>"+ 
+                            "<label for='sector'>Sector de Trabajo del Solicitante<label/>"+
+                             "<select id ='sector'type='text' class='form-control' name='sector'>"+
+                             opciones_sectores+
+                             "</select>"+
+                             "</div>"
+                    }else{
+                        contenido+="<div class='form-group row justify-content-center'> <label for='"+i+"'>"+i+"<label/> <input id ='"+i+"'type='text' class='form-control{{ $errors->has('"+i+"') ? ' is-invalid' : '' }}' required name='"+i+"' value='{{old('"+i+"')}}'>@if ($errors->has('"+i+"'))<span class='invalid-feedback' role='alert'><strong>{{ $errors->first('"+i+"') }}</strong></span>@endif</div>"
+                    }
             }
             else{
                 dataArray.push({"nombre":i, "disponible":val,"selected": true})
             }
         });
+        contenido+=sector;
         contenido+=superior;
         contenido+="<ul class='list-inline pull-right'><li><button id='step1' type='button' class='btn btn-primary next-step'>Siguiente</button></li></ul>"
         $('#step1').html(contenido)
@@ -302,13 +319,35 @@ span.round-tab:hover {
         var cambios = {}
         var dataArray = []
         var json = {!!$requerimientos->datos_organizacion!!}
+        var dependencias= {!!$data_dependencias!!}
+        var espacios= {!!$data_espacios!!}
+        var opciones_dependencias=""
+        var opciones_espacios=""
+        jQuery.each(dependencias["data_dependencias"], function(i, val) {
+            //console.log(val.nombre)
+            opciones_dependencias= opciones_dependencias + "<option value="+val.id+">"+val.nombre+"</option>"
+        });
+        jQuery.each(espacios["data_espacios"], function(i, val) {
+            //console.log(val.nombre)
+            opciones_espacios= opciones_espacios + "<option value="+val.id+">"+val.nombre+"</option>"
+        });
         var contenido = "<div class='form-group row justify-content-center'><h3>Datos de la Organizacion</h3></div><div class='form-group row justify-content-center'><p>Ingrese todos los datos requeridos</p></div>"
-        contenido += "<div class='form-group row justify-content-center'> <label for='dependencia'>Dependencia<label/> <input id ='dependencia'type='text' class='form-control{{ $errors->has('dependencia') ? ' is-invalid' : '' }}' required name='dependencia' value='{{old('dependencia')}}'>@if ($errors->has('dependencia'))<span class='invalid-feedback' role='alert'><strong>{{ $errors->first('dependencia') }}</strong></span>@endif</div>"
+        contenido+= "<div class='form-group row justify-content-center'>"+ 
+                            "<label for='dependencia'>Dependencia<label/>"+
+                             "<select id ='dependencia'type='text' class='form-control' name='dependencia'>"+
+                             opciones_dependencias+
+                             "</select>"+
+                             "</div>"
         jQuery.each(json, function(i, val) {
             cambios[i]=val
             if(val == "false"){
                 dataArray.push({"nombre":i, "disponible":val})
-                contenido+="<div class='form-group row justify-content-center'> <label for='"+i+"'>"+i+"<label/> <input id ='"+i+"'type='text' class='form-control' name='"+i+"' required ></div>"
+                contenido+="<div class='form-group row justify-content-center'>"+ 
+                            "<label for='espacio'>Espacio<label/>"+
+                             "<select id ='espacio'type='text' class='form-control' name='espacio'>"+
+                             opciones_espacios+
+                             "</select>"+
+                             "</div>"
             }
             else{
                 dataArray.push({"nombre":i, "disponible":val,"selected": true})
