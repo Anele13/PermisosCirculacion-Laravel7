@@ -103,6 +103,7 @@ class PermisosController extends Controller
 
     public function nada(){
         $ultimoPermiso = Permiso::all()->last();
+        //Excluimos algunos campos
         return view ('emails.pdf-content')->with('ultimoPermiso',$ultimoPermiso);
     }
 
@@ -116,8 +117,6 @@ class PermisosController extends Controller
                 $msg = "Se ha dado de alta el permiso!";
                 $permiso['habilitado'] = true;
                 $permiso->save();
-
-
                 $pdf = PDF::loadView('emails.pdf-content', ["ultimoPermiso"=>$permiso]);
                 $to_name = "Administrador del Sitio";
                 $to_email = $permiso->email;
@@ -130,9 +129,6 @@ class PermisosController extends Controller
                     $message->from("anelegaribaldi@gmail.com","Sitio de Permisos");
                     $message->attachData($pdf->output(), "permiso.pdf");
                 });  
-
-
-
                 return view ('emails.permiso')->with('success',$msg);
             }else{
                 $msg = 'No existe el formulario permiso solicitado';
