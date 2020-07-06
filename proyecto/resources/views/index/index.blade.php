@@ -223,8 +223,12 @@ span.round-tab:hover {
                         </div>
 
                         <div class="tab-pane" role="tabpanel" id="complete">
-                            <h3>Complete steps</h3>
-                            <p>You have successfully completed every steps.</p>
+                            <div class= "form-group row justify-content-center">
+                                <h3>Ultimo paso</h3>
+                            </div>
+                            <div class= "form-group row justify-content-center">
+                                <p>Para enviar su solicitud de permiso presione Guardar</p>
+                            </div>
                             <ul class="list-inline pull-right">
                                 <li><button type="button" class="btn btn-default prev-step">Anterior</button></li>
                                 <li><button type="submit" class="btn btn-primary  ">Guardar</button></li>
