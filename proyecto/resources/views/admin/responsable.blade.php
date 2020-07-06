@@ -1,6 +1,21 @@
 @extends('layout_base')
 
 @section('content')
+@if ($message = Session::get('success'))
+    <div class="alert alert-success alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+    </div>
+@endif
+@if(count($errors)>0)
+        <div class="alert alert-danger alert-block" role="alert">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+                @foreach($errors->all() as $error)
+                <li>{{$error}}</li>
+                @endforeach
+            
+        </div>
+@endif
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
