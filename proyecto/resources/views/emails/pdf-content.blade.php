@@ -5,16 +5,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <style>
     .footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: .75rem 1.25rem;
-    background-color: rgba(0,0,0,.03);
-    border-top: 1px solid rgba(0,0,0,.125);
-}
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: .75rem 1.25rem;
+        background-color: rgba(0,0,0,.03);
+        border-top: 1px solid rgba(0,0,0,.125);
+    }
     </style>
   
-    <main>
+   
         <div>
             <h1><center>Permiso de Circulacion</center></h1>
             <hr>
@@ -45,7 +45,7 @@
                 </div>
             </div>
         </div>
-    </main>
+    
     <footer class="footer">
         <div class="container">
             <span class="text-muted">Autorizado por la seccion de permisos.</span>
