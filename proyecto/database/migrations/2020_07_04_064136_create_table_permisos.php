@@ -36,7 +36,6 @@ class CreateTablePermisos extends Migration
             $table->boolean('habilitado')->nullable();
             $table->timestamps();
             $table->string('token');
-            $table->boolean('habilitado');
         });
     }
 
@@ -47,7 +46,8 @@ class CreateTablePermisos extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('superiors');
         Schema::dropIfExists('permisos');
+        Schema::dropIfExists('superiors');
+        
     }
 }
