@@ -17,7 +17,8 @@ class RequerimientosController extends Controller {
 
    public function updateCamposPersona(Request $request) {
       //error_log($request->input('nombre'));
-      
+      error_log(url('/'));
+
       $requerimientos = Requerimientos::find(1);
       $atributos = json_decode($requerimientos->datos_persona, true);
       foreach($atributos as $key=>$value) {
@@ -28,7 +29,7 @@ class RequerimientosController extends Controller {
       $requerimientos->datos_persona = json_encode($atributos);
       $requerimientos->save();
       $msg = "This is a simple message."; 
-      error_log("acasasdasd");
+      
       
       return response()->json(array('msg'=> $msg), 200);
    }

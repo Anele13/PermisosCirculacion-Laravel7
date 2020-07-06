@@ -65,8 +65,7 @@ class PermisosController extends Controller
         if($request->has('superior')){
             //Metodo 2 de enviar mail
             //Creo el pdf para enviar
-            $data_pdf = ["algo para enviar"];
-            $pdf = PDF::loadView('emails.pdf-content', $data_pdf);
+            $pdf = PDF::loadView('emails.pdf-content', $ultimoPermiso);
 
             //adjunto el pdf y lo envio por mail
             $to_name = "Administrador del Sitio";
@@ -74,7 +73,8 @@ class PermisosController extends Controller
             #$to_email = "taniiaaranda@gmail.com";
             $to_email = $superiorEmail;
             $data_contenido_mail = [
-            'token' => $id
+                'token' => $id,
+                'url' => url('/')
             ];
 
             Mail::send("emails.message-content", ["data"=>$data_contenido_mail], function($message) use ($to_name, $to_email, $pdf) {
@@ -95,5 +95,23 @@ class PermisosController extends Controller
 
     public function responsable(){
         return view ('admin.responsable');
+    }
+
+    public function nada(){
+        $ultimoPermiso = Permiso::all()->last();
+        return view ('emails.pdf-content')->with('ultimoPermiso',$ultimoPermiso);
+    }
+
+    public function habilitarPermiso(Request $request){
+        $token = $request->get('token');        
+        if ($token != null){
+            $permiso = 
+            $msg = "Se ha dado de alta el permiso!";
+            return view ('emails.permiso')->with('success',$msg);
+        }
+        else{
+            $msg = 'Error dando de alta el permiso!';
+            return view ('emails.permiso')->with('error',$msg);
+        }
     }
 }
