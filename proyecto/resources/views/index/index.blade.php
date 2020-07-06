@@ -278,7 +278,7 @@ span.round-tab:hover {
                 dataArray.push({"nombre":i, "disponible":val})
                 if(i =='superior'){
                     superior="<div class='form-group row justify-content-center'>"+ 
-                            "<label for='superior'>Personal Responable Superior<label/>"+
+                            "<label for='superior'>Personal Responsable Superior<label/>"+
                              "<select id ='superior'type='text' class='form-control' name='superior'>"+
                              opciones_superiores+
                              "</select>"+

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Permiso;
+use App\Superior;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
@@ -34,9 +35,9 @@ class PermisosController extends Controller
         if($request->has('sector')){
             $datos['sector']='required|string|max:70';    
         }
-        #if($request->has('superior')){
-         #   $datos['superior']='required|integer';  
-        #}
+        if($request->has('superior')){
+            $datos['superior']='required|integer';  
+        }
         if($request->has('dependencia')){
             $datos['dependencia']='required|string|max:70';    
         }
@@ -48,8 +49,13 @@ class PermisosController extends Controller
         $this->validate($request, $datos,$Mensaje);
         $datosPersona = $request->except('_token');
         Permiso::insert($datosPersona);
+        $ultimoPermiso = Permiso::all()->last();
+        $id=$ultimoPermiso->id;
+        $idSuperior= $ultimoPermiso->superior;
+        $superior = Superior:: where("id","=",$idSuperior)->first();
+        $superiorEmail= $superior->email;
 
-        if(false){
+        if($request->has('superior')){
             //Metodo 2 de enviar mail
             //Creo el pdf para enviar
             $data_pdf = ["algo para enviar"];
@@ -58,9 +64,8 @@ class PermisosController extends Controller
             //adjunto el pdf y lo envio por mail
             $to_name = "Administrador del Sitio";
             #$to_email = "anelegaribaldi@gmail.com";
-            $to_email = "taniiaaranda@gmail.com";
-            $ultimoPermiso = Permiso::all()->last();
-            $id=$ultimoPermiso->id;
+            #$to_email = "taniiaaranda@gmail.com";
+            $to_email = $superiorEmail;
             $data_contenido_mail = [
             'token' => $id
             ];
