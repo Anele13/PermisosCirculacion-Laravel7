@@ -74,11 +74,17 @@ class RequerimientosController extends Controller {
    }
 
    public function altaResponsable(Request $request){
+      $datos=[
+         'nombre' => 'required|string|max:70',
+         'email'=> 'required|email'
+      ];
+      $Mensaje=["required"=>'El :attribute es requerido'];
+      $this->validate($request, $datos,$Mensaje);
       $datosSuperior = $request->except('_token');
       Superior::insert($datosSuperior);
-      $requerimientos = Requerimientos::find(1);
+      #$requerimientos = Requerimientos::find(1);
       return back()
-            ->with('success','Se ha dado de alta un nuevo administrador!')
-            ->with('requerimientos',$requerimientos);
+            ->with('success','Se ha dado de alta un nuevo administrador!');
+            #->with('requerimientos',$requerimientos);
    }
 }
