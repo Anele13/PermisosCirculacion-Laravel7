@@ -13,6 +13,13 @@ use PDF;
 
 class PermisosController extends Controller
 {
+
+    public function index(){
+        $datos['permisos']= Permiso::paginate(10);
+        $datos2['superiores'] = Superior::all();
+        return view ('admin.permisos',$datos,$datos2);
+    }
+
     public function store(Request $request){
         $superiores = \App\Superior::get();
         $data = json_encode(array('data'=>$superiores));
@@ -78,5 +85,15 @@ class PermisosController extends Controller
         }
         return redirect()->route('index')->with('success','Su solicitud de permiso ha sido enviada');
         //return  back()->with('success','Su solicitud de permiso ha sido enviada');
+    }
+
+
+    public function responsables(){
+        $datos['superiores']= Superior::paginate(10);
+        return view ('admin.responsables',$datos);
+    }
+
+    public function responsable(){
+        return view ('admin.responsable');
     }
 }
