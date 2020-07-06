@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\MessageReceived;
 use PDF;
 use App\Superior;
+use App\Sector;
+use App\Dependencia;
+use App\Espacio;
 
 
 class RequerimientosController extends Controller {
@@ -86,6 +89,47 @@ class RequerimientosController extends Controller {
       #$requerimientos = Requerimientos::find(1);
       return back()
             ->with('success','Se ha dado de alta un nuevo administrador!');
+            #->with('requerimientos',$requerimientos);
+   }
+
+   public function altaSector(Request $request){
+      $datos=[
+         'nombre' => 'required|string|max:70',
+      ];
+      $Mensaje=["required"=>'El :attribute es requerido'];
+      $this->validate($request, $datos,$Mensaje);
+      $datosSector = $request->except('_token');
+      Sector::insert($datosSector);
+      #$requerimientos = Requerimientos::find(1);
+      return back()
+            ->with('success','Se ha dado de alta un nuevo sector!');
+            #->with('requerimientos',$requerimientos);
+   }
+   public function altaDependencia(Request $request){
+      $datos=[
+         'nombre' => 'required|string|max:70',
+      ];
+      $Mensaje=["required"=>'El :attribute es requerido'];
+      $this->validate($request, $datos,$Mensaje);
+      $datosDependencia = $request->except('_token');
+      Dependencia::insert($datosDependencia);
+      #$requerimientos = Requerimientos::find(1);
+      return back()
+            ->with('success','Se ha dado de alta una nueva dependencia!');
+            #->with('requerimientos',$requerimientos);
+   }
+
+   public function altaEspacio(Request $request){
+      $datos=[
+         'nombre' => 'required|string|max:70',
+      ];
+      $Mensaje=["required"=>'El :attribute es requerido'];
+      $this->validate($request, $datos,$Mensaje);
+      $datosEspacio = $request->except('_token');
+      Espacio::insert($datosEspacio);
+      #$requerimientos = Requerimientos::find(1);
+      return back()
+            ->with('success','Se ha dado de alta un nuevo espacio!');
             #->with('requerimientos',$requerimientos);
    }
 }

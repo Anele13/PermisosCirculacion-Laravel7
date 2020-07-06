@@ -72,27 +72,27 @@ class PermisosController extends Controller
         $superior = Superior:: where("id","=",$idSuperior)->first();
         $superiorEmail= $superior->email;
 
-        if(false){
-            //Metodo 2 de enviar mail
-            //Creo el pdf para enviar
-            $pdf = PDF::loadView('emails.pdf-content', ["ultimoPermiso"=>$ultimoPermiso]);
+        
+        //Metodo 2 de enviar mail
+        //Creo el pdf para enviar
+        $pdf = PDF::loadView('emails.pdf-content', ["ultimoPermiso"=>$ultimoPermiso]);
 
-            //adjunto el pdf y lo envio por mail
-            $to_name = "Administrador del Sitio";
-            #$to_email = "anelegaribaldi@gmail.com";
-            #$to_email = "taniiaaranda@gmail.com";
-            $to_email = $superiorEmail;
-            $data_contenido_mail = [
-                'token' => $token,
-                'url' => url('/')
-            ];
+        //adjunto el pdf y lo envio por mail
+        $to_name = "Administrador del Sitio";
+        #$to_email = "anelegaribaldi@gmail.com";
+        #$to_email = "taniiaaranda@gmail.com";
+        $to_email = $superiorEmail;
+        $data_contenido_mail = [
+            'token' => $token,
+            'url' => url('/')
+        ];
 
-            Mail::send("emails.message-content", ["data"=>$data_contenido_mail], function($message) use ($to_name, $to_email, $pdf) {
-            $message->to($to_email, $to_name)->subject("Solicitud de Permiso");
-            $message->from("anelegaribaldi@gmail.com","Sitio de Permisos");
-            $message->attachData($pdf->output(), "permiso.pdf");
-            });  
-        }
+        Mail::send("emails.message-content", ["data"=>$data_contenido_mail], function($message) use ($to_name, $to_email, $pdf) {
+        $message->to($to_email, $to_name)->subject("Solicitud de Permiso");
+        $message->from("anelegaribaldi@gmail.com","Sitio de Permisos");
+        $message->attachData($pdf->output(), "permiso.pdf");
+        });  
+        
         return redirect()->route('index')->with('success','Su solicitud de permiso ha sido enviada');
         //return  back()->with('success','Su solicitud de permiso ha sido enviada');
     }
@@ -105,6 +105,16 @@ class PermisosController extends Controller
 
     public function responsable(){
         return view ('admin.responsable');
+    }
+
+    public function sector(){
+        return view ('admin.sector');
+    }
+    public function Dependencia(){
+        return view ('admin.dependencia');
+    }
+    public function Espacio(){
+        return view ('admin.espacio');
     }
 
     public function nada(){

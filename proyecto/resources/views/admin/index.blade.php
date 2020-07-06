@@ -74,6 +74,18 @@
             <form class="form" method="GET" action="{{ route('responsables') }}" >
                 <button type="submit" class="btn btn-info">Listar Personal Responsable Superior</button>
             </form>
+            <hr>
+            <form class="form" method="GET" action="{{ route('sector') }}" >
+                <button type="submit" class="btn btn-info">Agregar Sector</button>
+            </form>
+            <hr>
+            <form class="form" method="GET" action="{{ route('dependencia') }}" >
+                <button type="submit" class="btn btn-info">Agregar Dependencia</button>
+            </form>
+            <hr>
+            <form class="form" method="GET" action="{{ route('espacio') }}" >
+                <button type="submit" class="btn btn-info">Agregar Espacio</button>
+            </form>
         </div>
         
     </div>
