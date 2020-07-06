@@ -35,6 +35,8 @@ class CreateTablePermisos extends Migration
             $table->string('espacio')->nullable();
             $table->boolean('autorizado')->nullable();
             $table->timestamps();
+            $table->string('token');
+            $table->boolean('habilitado');
         });
     }
 

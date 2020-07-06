@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MessageReceived;
 use PDF;
+use Illuminate\Support\Str;
 
 class PermisosController extends Controller
 {
@@ -55,9 +56,12 @@ class PermisosController extends Controller
 
         $this->validate($request, $datos,$Mensaje);
         $datosPersona = $request->except('_token');
+        $datosPersona['habilitado']=false;
+        $datosPersona['token']= Str::random($length = 20); //genera un token random
         Permiso::insert($datosPersona);
+
         $ultimoPermiso = Permiso::all()->last();
-        $id=$ultimoPermiso->id;
+        $token=$ultimoPermiso->token;
         $idSuperior= $ultimoPermiso->superior;
         $superior = Superior:: where("id","=",$idSuperior)->first();
         $superiorEmail= $superior->email;
@@ -65,7 +69,7 @@ class PermisosController extends Controller
         if($request->has('superior')){
             //Metodo 2 de enviar mail
             //Creo el pdf para enviar
-            $pdf = PDF::loadView('emails.pdf-content', $ultimoPermiso);
+            $pdf = PDF::loadView('emails.pdf-content', ["ultimoPermiso"=>$ultimoPermiso]);
 
             //adjunto el pdf y lo envio por mail
             $to_name = "Administrador del Sitio";
@@ -73,7 +77,7 @@ class PermisosController extends Controller
             #$to_email = "taniiaaranda@gmail.com";
             $to_email = $superiorEmail;
             $data_contenido_mail = [
-                'token' => $id,
+                'token' => $token,
                 'url' => url('/')
             ];
 
@@ -104,10 +108,19 @@ class PermisosController extends Controller
 
     public function habilitarPermiso(Request $request){
         $token = $request->get('token');        
-        if ($token != null){
-            $permiso = 
-            $msg = "Se ha dado de alta el permiso!";
-            return view ('emails.permiso')->with('success',$msg);
+        if ($token !== null){
+            $permiso = Permiso:: where("token","=",$token)->first();
+            if ($permiso !== null){
+                $email = $permiso->email;
+                //enviar  la persona el permiso
+                $msg = "Se ha dado de alta el permiso!";
+                $permiso['habilitado'] = true;
+                $permiso->save();
+                return view ('emails.permiso')->with('success',$msg);
+            }else{
+                $msg = 'No existe el formulario permiso solicitado';
+                return view ('emails.permiso')->with('error',$msg);
+            }            
         }
         else{
             $msg = 'Error dando de alta el permiso!';
