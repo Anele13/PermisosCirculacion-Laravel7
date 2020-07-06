@@ -61,17 +61,21 @@
             </form>
         </div>
         <div class="col-md-6">
-            <h4>Responsable de los Permisos</h4>
+            <h4>Mas Opciones</h4>
             <hr> 
-            <form class="form" method="POST" action="{{ route('alta_reponsable') }}" >
-                @csrf
-                <input required type="text" class="form-control sm-2 mr-sm-2"  name="nombre" placeholder="Nombre">
-                <br>
-                <input required type="mail" class="form-control sm-2 mr-sm-2"  name="email" placeholder="Email">
-                <br>
-                <button type="submit" class="btn btn-info">Alta</button>
+            <form class="form" method="GET" action="{{ route('permisos') }}" >
+                <button type="submit" class="btn btn-info">Listar Permisos</button>
+            </form>
+            <hr>
+            <form class="form" method="GET" action="{{ route('responsable') }}" >
+                <button type="submit" class="btn btn-info">Agregar Personal Responsable Superior</button>
+            </form>
+            <hr>
+            <form class="form" method="GET" action="{{ route('responsables') }}" >
+                <button type="submit" class="btn btn-info">Listar Personal Responsable Superior</button>
             </form>
         </div>
+        
     </div>
     
     
