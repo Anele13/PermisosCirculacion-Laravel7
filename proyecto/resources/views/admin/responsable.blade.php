@@ -30,12 +30,17 @@
                 <br>
                 <input required type="mail" class="form-control sm-2 mr-sm-2"  name="email" placeholder="Email">
                 <br>
-                <button type="submit" class="btn btn-info">Alta</button>
+                <button type="submit" class="btn btn-success pull-right">Guardar</button>
             </form>
             <br>
             <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
             <div class="d-inline-block">
-            <a class="btn btn-info" href="/admin"><i class="fa fa-home" aria-hidden="true"></i> Volver<span class="sr-only">(current)</span></a>
+            <a class="btn btn-info " href="/admin"><i class="fa fa-home" aria-hidden="true"></i> Volver<span class="sr-only">(current)</span></a>
         </div>
             </div>
        

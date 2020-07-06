@@ -96,4 +96,20 @@ class PermisosController extends Controller
     public function responsable(){
         return view ('admin.responsable');
     }
+
+    public function mostrar_permiso($token){
+        $permiso = Permiso:: where("id","=",$token)->first();
+        $datos['permiso']= $permiso;
+        $datos2['superiores'] = Superior::all();
+        return view ('autorizar_permiso',$datos,$datos2);
+    }
+
+    public function autorizar($token){
+        $permiso = Permiso:: where("id","=",$token)->first();
+        $permiso->autorizado= true;
+        $permiso->save();
+        $datos['permiso']= $permiso;
+        $datos2['superiores'] = Superior::all();
+        return redirect()->route('autorizar_permiso',$token)->with('success','El permiso ha sido autorizado');;
+    }
 }
