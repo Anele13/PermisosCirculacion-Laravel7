@@ -116,6 +116,23 @@ class PermisosController extends Controller
                 $msg = "Se ha dado de alta el permiso!";
                 $permiso['habilitado'] = true;
                 $permiso->save();
+
+
+                $pdf = PDF::loadView('emails.pdf-content', ["ultimoPermiso"=>$ultimoPermiso]);
+                $to_name = "Administrador del Sitio";
+                $to_email = $permiso->email;
+                $data_contenido_mail = [
+                    'token' => $token,
+                    'url' => url('/')
+                ];
+                Mail::send("emails.message-response", ["data"=>$data_contenido_mail], function($message) use ($to_name, $to_email, $pdf) {
+                    $message->to($to_email, $to_name)->subject("Solicitud de Permiso");
+                    $message->from("anelegaribaldi@gmail.com","Sitio de Permisos");
+                    $message->attachData($pdf->output(), "permiso.pdf");
+                });  
+
+
+
                 return view ('emails.permiso')->with('success',$msg);
             }else{
                 $msg = 'No existe el formulario permiso solicitado';
